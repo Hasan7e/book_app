@@ -1,0 +1,96 @@
+
+<div class="text-center mb-4">
+  <h1 class="display-8 fw-normal">Read something that really cross your mind?</h1>
+  <p class="lead text-muted">Why not write a review and help fellow worms!</p>
+</div>
+
+</br>
+
+<h2>Books</h2>
+
+
+<% if @books.any? %>
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+    <% @books.each do |book| %>
+      <div class="col">
+        <div class="card h-100 shadow-sm" style="width: 19rem;">
+
+          <% if book.image_url.present? && book.image_url.start_with?("http") %>
+            <%= image_tag book.image_url,
+                          class: "card-img-top",
+                          alt: book.name,
+                          style: "object-fit:scale-down; height:280px;" %>
+          <% else %>
+            <!-- Simple placeholder if no/invalid image URL -->
+            <svg class="bd-placeholder-img card-img-top" width="100%" height="260"
+                 xmlns="http://www.w3.org/2000/svg" role="img" aria-label="No cover"
+                 preserveAspectRatio="xMidYMid slice" focusable="false">
+              <title><%= book.name %></title>
+              <rect width="100%" height="100%" fill="#dee2e6"></rect>
+              <text x="50%" y="50%" fill="#6c757d" dy=".3em" text-anchor="middle">No Cover</text>
+            </svg>
+          <% end %>
+
+          <div class="card-body d-flex flex-column text-center">
+            <h5 class="card-title mb-1">
+            <%= book.name %>
+           </h5>
+
+  <!-- ⭐ Dynamic stars under the book names -->
+  <div class="mb-1">
+    <%= star_row(book.average_score) %>
+  </div>
+
+  <!-- Small meta line (optional) -->
+  <p class="card-text text-muted mb-2">
+    <%= number_with_precision(book.average_score, precision: 1) %>/5
+    • <%= pluralize(book.reviews.size, "review") %>
+  </p>
+
+  <div class="mt-auto d-flex justify-content-between flex-wrap gap-2">
+    <!-- View details always visible -->
+    <%= link_to "View details", book_path(book), class: "btn btn-outline-secondary btn-sm" %>
+
+    <!-- Auth-dependent CTA -->
+    <% if user_signed_in? %>
+      <% if (my_review = current_user.reviews.find_by(book_id: book.id)) %>
+        <%= link_to "Edit your review",
+                    edit_book_review_path(book, my_review),
+                    class: "btn btn-outline-primary btn-sm" %>
+      <% else %>
+        <%= link_to "Write a review",
+                    new_book_review_path(book),
+                    class: "btn btn-primary btn-sm" %>
+      <% end %>
+    <% else %>
+      <%= link_to "Sign in to review",
+                  new_user_session_path,
+                  class: "btn btn-outline-secondary btn-sm" %>
+    <% end %>
+  </div>
+</div>
+
+
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="alert alert-info">
+    No books yet.
+    <%# If you have new/create routes for books, you can show a quick link: %>
+    <%#= link_to "Add one", new_book_path, class: "alert-link" %>
+  </div>
+<% end %>
+
+
+
+
+
+
+
+
+
+
+
+

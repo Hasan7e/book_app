@@ -1,0 +1,11 @@
+<h1><%= @review.persisted? ? "Edit review" : "New review" %></h1>
+
+<h1>New review</h1>
+
+<%= render "form", review: @review %>
+
+<br>
+
+<div>
+  <%= link_to "Back to reviews", @book %>
+</div>

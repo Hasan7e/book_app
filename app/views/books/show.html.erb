@@ -1,0 +1,56 @@
+<p><%= link_to "← Back", books_path %></p>
+
+<div style="display:flex; gap:1rem;">
+  <% if @book.image_url.present? && @book.image_url.start_with?("http") %>
+    <%= image_tag @book.image_url, alt: @book.name,
+        style: "width:160px; height:240px; object-fit:cover; border-radius:.25rem;" %>
+  <% end %>
+
+  <div>
+    <h2 style="margin:0;"><%= @book.name %></h2>
+    <p style="margin:.5rem 0 1rem;">
+      ⭐ Average: <strong><%= number_with_precision(@book.average_score, precision: 1) %></strong> / 5
+      (<%= pluralize(@book.reviews.count, "review") %>)
+    </p>
+
+    <% if user_signed_in? %>
+      <% existing = current_user.reviews.find_by(book: @book) %>
+      <% if existing %>
+        <p><%= link_to "Edit your review", edit_book_review_path(@book, existing) %></p>
+      <% else %>
+        <p><%= link_to "Write a review", new_book_review_path(@book) %></p>
+      <% end %>
+    <% else %>
+      <p><%= link_to "Sign in", new_user_session_path %> to write a review.</p>
+    <% end %>
+  </div>
+</div>
+
+<hr>
+
+<h3>Reviews</h3>
+<% if @reviews.any? %>
+  <ul style="list-style:none; padding:0; display:grid; gap:.75rem;">
+    <% @reviews.each do |r| %>
+      <li style="border:1px solid #eee; border-radius:.5rem; padding:1rem;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <strong><%= r.title %></strong>
+          <span>⭐ <%= r.score %>/5</span>
+        </div>
+        <div style="color:#666; font-size:.9rem;">
+          by <%= r.user&.email || "Anonymous" %> • <%= r.created_at.strftime("%Y-%m-%d %H:%M") %>
+        </div>
+        <p style="margin:.5rem 0 0; white-space:pre-wrap;"><%= r.description %></p>
+
+        <% if user_signed_in? && r.user == current_user %>
+          <div style="margin-top:.5rem;">
+            <%= link_to "Edit", edit_book_review_path(@book, r) %> |
+            <%= button_to "Delete", book_review_path(@book, r), method: :delete, data: { confirm: "Delete your review?" } %>
+          </div>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No reviews yet.</p>
+<% end %>

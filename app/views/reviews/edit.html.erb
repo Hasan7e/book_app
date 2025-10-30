@@ -1,0 +1,10 @@
+<h1>Edit review</h1>
+<%= render "form" %>
+
+<p>
+  <%= link_to "Back to book", @book %>
+  |
+  <%= button_to "Delete", book_review_path(@book, @review),
+        method: :delete, data: { confirm: "Delete your review?" } %>
+</p>
+
