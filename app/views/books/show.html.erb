@@ -1,56 +1,100 @@
-<p><%= link_to "← Back", books_path %></p>
+<p><%= link_to "← Back", books_path, class: "text-decoration-none" %></p>
 
-<div style="display:flex; gap:1rem;">
-  <% if @book.image_url.present? && @book.image_url.start_with?("http") %>
-    <%= image_tag @book.image_url, alt: @book.name,
-        style: "width:160px; height:240px; object-fit:cover; border-radius:.25rem;" %>
-  <% end %>
-
-  <div>
-    <h2 style="margin:0;"><%= @book.name %></h2>
-    <p style="margin:.5rem 0 1rem;">
-      ⭐ Average: <strong><%= number_with_precision(@book.average_score, precision: 1) %></strong> / 5
-      (<%= pluralize(@book.reviews.count, "review") %>)
-    </p>
-
-    <% if user_signed_in? %>
-      <% existing = current_user.reviews.find_by(book: @book) %>
-      <% if existing %>
-        <p><%= link_to "Edit your review", edit_book_review_path(@book, existing) %></p>
-      <% else %>
-        <p><%= link_to "Write a review", new_book_review_path(@book) %></p>
+<div class="row g-4">
+  <!-- LEFT: details + reviews -->
+  <div class="col-12 col-lg-7">
+    <div class="d-flex gap-3 align-items-start mb-3">
+      <% if @book.image_url.present? && @book.image_url.start_with?("http") %>
+        <div class="bg-light d-flex align-items-center justify-content-center rounded" style="width:180px; height:260px;">
+          <%= image_tag @book.image_url, alt: @book.name, class: "img-fluid object-fit-contain h-100 w-100" %>
+        </div>
       <% end %>
-    <% else %>
-      <p><%= link_to "Sign in", new_user_session_path %> to write a review.</p>
-    <% end %>
-  </div>
-</div>
+      <div>
+        <h2 class="mb-1"><%= @book.name %></h2>
+        <div class="mb-1"><%= star_row(@book.average_score) %></div>
+        <p class="text-muted mb-2">
+          <%= number_with_precision(@book.average_score, precision: 1) %>/5 •
+          <%= pluralize(@book.reviews.count, "review") %>
+        </p>
+      </div>
+    </div>
 
-<hr>
+    <hr>
 
-<h3>Reviews</h3>
-<% if @reviews.any? %>
-  <ul style="list-style:none; padding:0; display:grid; gap:.75rem;">
-    <% @reviews.each do |r| %>
-      <li style="border:1px solid #eee; border-radius:.5rem; padding:1rem;">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-          <strong><%= r.title %></strong>
-          <span>⭐ <%= r.score %>/5</span>
-        </div>
-        <div style="color:#666; font-size:.9rem;">
-          by <%= r.user&.email || "Anonymous" %> • <%= r.created_at.strftime("%Y-%m-%d %H:%M") %>
-        </div>
-        <p style="margin:.5rem 0 0; white-space:pre-wrap;"><%= r.description %></p>
-
-        <% if user_signed_in? && r.user == current_user %>
-          <div style="margin-top:.5rem;">
-            <%= link_to "Edit", edit_book_review_path(@book, r) %> |
-            <%= button_to "Delete", book_review_path(@book, r), method: :delete, data: { confirm: "Delete your review?" } %>
+    <h4 class="mb-3">Reviews</h4>
+    <% if @reviews.any? %>
+      <div class="vstack gap-3">
+        <% @reviews.each do |r| %>
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center">
+                <strong><%= r.title.presence || "(No title)" %></strong>
+                <span>⭐ <%= r.score %>/5</span>
+              </div>
+              <div class="text-muted small mb-2">
+                by <%= r.user&.email || "Anonymous" %> • <%= r.created_at.strftime("%Y-%m-%d %H:%M") %>
+              </div>
+              <p class="mb-0"><%= simple_format r.description %></p>
+            </div>
           </div>
         <% end %>
-      </li>
+      </div>
+    <% else %>
+      <div class="alert alert-info">No reviews yet.</div>
     <% end %>
-  </ul>
-<% else %>
-  <p>No reviews yet.</p>
-<% end %>
+  </div>
+
+  <!-- RIGHT: review form -->
+  <div class="col-12 col-lg-5" id="review-form">
+    <div class="card">
+      <div class="card-header">
+        <%= user_signed_in? && @review.persisted? ? "Edit your review" : "Write a review" %>
+      </div>
+      <div class="card-body">
+        <% if user_signed_in? %>
+          <%= form_with(model: [@book, @review], local: true) do |form| %>
+            <% if @review.errors.any? %>
+              <div class="alert alert-danger">
+                <strong><%= pluralize(@review.errors.count, "error") %> prevented saving:</strong>
+                <ul class="mb-0">
+                  <% @review.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+            <div class="mb-3">
+              <%= form.label :title, class: "form-label" %>
+              <%= form.text_field :title, class: "form-control" %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :description, class: "form-label" %>
+              <%= form.text_area :description, rows: 6, class: "form-control" %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :score, "Score (1–5)", class: "form-label" %>
+              <%= form.number_field :score, in: 1..5, step: 1, class: "form-control", value: (@review.score || 5) %>
+            </div>
+
+            <div class="d-flex gap-2">
+              <%= form.submit(@review.persisted? ? "Update review" : "Post review", class: "btn btn-primary") %>
+          
+              <% if @review.persisted? %>
+              <%= link_to "Delete",
+                    book_review_path(@book, @review),
+                    data: { turbo_method: :delete, turbo_confirm: "Delete your review?" },
+                    class: "btn btn-outline-danger" %>
+              <% end %>
+            </div>
+          <% end %>
+        <% else %>
+          <p class="mb-3">Please sign in to write a review.</p>
+          <%= link_to "Sign in", new_user_session_path, class: "btn btn-primary" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

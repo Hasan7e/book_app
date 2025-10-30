@@ -10,6 +10,7 @@ class BooksController < ApplicationController
    def show
     @book = Book.find(params[:id])
     @reviews = @book.reviews.includes(:user).order(created_at: :desc)
+    @review = user_signed_in? ? current_user.reviews.find_or_initialize_by(book: @book) : @book.reviews.build #added this line for the second page 
   end
 
   # GET /books/new

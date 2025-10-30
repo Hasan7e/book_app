@@ -54,9 +54,10 @@
     <!-- Auth-dependent CTA -->
     <% if user_signed_in? %>
       <% if (my_review = current_user.reviews.find_by(book_id: book.id)) %>
-        <%= link_to "Edit your review",
-                    edit_book_review_path(book, my_review),
-                    class: "btn btn-outline-primary btn-sm" %>
+      <%= link_to "Edit your review",
+      book_path(book, anchor: "review-form"),
+      class: "btn btn-outline-primary btn-sm" %>
+
       <% else %>
         <%= link_to "Write a review",
                     new_book_review_path(book),
