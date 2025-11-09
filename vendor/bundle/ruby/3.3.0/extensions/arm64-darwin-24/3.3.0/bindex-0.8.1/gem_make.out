@@ -1,0 +1,18 @@
+current directory: /Users/hasan/Desktop/cloudCa/book_app/vendor/bundle/ruby/3.3.0/gems/bindex-0.8.1/ext/skiptrace
+/Users/hasan/.rbenv/versions/3.3.4/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /Users/hasan/Desktop/cloudCa/book_app/vendor/bundle/ruby/3.3.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20251105-81879-zenkzc sitelibdir\=./.gem.20251105-81879-zenkzc clean
+
+current directory: /Users/hasan/Desktop/cloudCa/book_app/vendor/bundle/ruby/3.3.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20251105-81879-zenkzc sitelibdir\=./.gem.20251105-81879-zenkzc
+compiling cruby.c
+linking shared-object skiptrace/internal/cruby.bundle
+
+current directory: /Users/hasan/Desktop/cloudCa/book_app/vendor/bundle/ruby/3.3.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20251105-81879-zenkzc sitelibdir\=./.gem.20251105-81879-zenkzc install
+/usr/bin/install -c -m 0755 cruby.bundle ./.gem.20251105-81879-zenkzc/skiptrace/internal
+
+current directory: /Users/hasan/Desktop/cloudCa/book_app/vendor/bundle/ruby/3.3.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20251105-81879-zenkzc sitelibdir\=./.gem.20251105-81879-zenkzc clean

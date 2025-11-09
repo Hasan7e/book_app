@@ -1,0 +1,22 @@
+current directory: /Users/hasan/Desktop/cloudCa/book_app/vendor/bundle/ruby/3.3.0/gems/bootsnap-1.18.6/ext/bootsnap
+/Users/hasan/.rbenv/versions/3.3.4/bin/ruby extconf.rb
+checking for fdatasync() in unistd.h... yes
+checking for whether -D_GNU_SOURCE is accepted as CPPFLAGS... yes
+checking for whether -O3 is accepted as CFLAGS... yes
+checking for whether -std=c99 is accepted as CFLAGS... yes
+creating Makefile
+
+current directory: /Users/hasan/Desktop/cloudCa/book_app/vendor/bundle/ruby/3.3.0/gems/bootsnap-1.18.6/ext/bootsnap
+make DESTDIR\= sitearchdir\=./.gem.20251105-81879-arrgbq sitelibdir\=./.gem.20251105-81879-arrgbq clean
+
+current directory: /Users/hasan/Desktop/cloudCa/book_app/vendor/bundle/ruby/3.3.0/gems/bootsnap-1.18.6/ext/bootsnap
+make DESTDIR\= sitearchdir\=./.gem.20251105-81879-arrgbq sitelibdir\=./.gem.20251105-81879-arrgbq
+compiling bootsnap.c
+linking shared-object bootsnap/bootsnap.bundle
+
+current directory: /Users/hasan/Desktop/cloudCa/book_app/vendor/bundle/ruby/3.3.0/gems/bootsnap-1.18.6/ext/bootsnap
+make DESTDIR\= sitearchdir\=./.gem.20251105-81879-arrgbq sitelibdir\=./.gem.20251105-81879-arrgbq install
+/usr/bin/install -c -m 0755 bootsnap.bundle ./.gem.20251105-81879-arrgbq/bootsnap
+
+current directory: /Users/hasan/Desktop/cloudCa/book_app/vendor/bundle/ruby/3.3.0/gems/bootsnap-1.18.6/ext/bootsnap
+make DESTDIR\= sitearchdir\=./.gem.20251105-81879-arrgbq sitelibdir\=./.gem.20251105-81879-arrgbq clean

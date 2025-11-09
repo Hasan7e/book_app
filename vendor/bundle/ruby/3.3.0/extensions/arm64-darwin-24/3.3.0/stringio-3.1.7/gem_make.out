@@ -1,0 +1,19 @@
+current directory: /Users/hasan/Desktop/cloudCa/book_app/vendor/bundle/ruby/3.3.0/gems/stringio-3.1.7/ext/stringio
+/Users/hasan/.rbenv/versions/3.3.4/bin/ruby extconf.rb
+checking for rb_io_mode_t in ruby/io.h... no
+creating Makefile
+
+current directory: /Users/hasan/Desktop/cloudCa/book_app/vendor/bundle/ruby/3.3.0/gems/stringio-3.1.7/ext/stringio
+make DESTDIR\= sitearchdir\=./.gem.20251105-81879-1v0jnh sitelibdir\=./.gem.20251105-81879-1v0jnh clean
+
+current directory: /Users/hasan/Desktop/cloudCa/book_app/vendor/bundle/ruby/3.3.0/gems/stringio-3.1.7/ext/stringio
+make DESTDIR\= sitearchdir\=./.gem.20251105-81879-1v0jnh sitelibdir\=./.gem.20251105-81879-1v0jnh
+compiling stringio.c
+linking shared-object stringio.bundle
+
+current directory: /Users/hasan/Desktop/cloudCa/book_app/vendor/bundle/ruby/3.3.0/gems/stringio-3.1.7/ext/stringio
+make DESTDIR\= sitearchdir\=./.gem.20251105-81879-1v0jnh sitelibdir\=./.gem.20251105-81879-1v0jnh install
+/usr/bin/install -c -m 0755 stringio.bundle ./.gem.20251105-81879-1v0jnh
+
+current directory: /Users/hasan/Desktop/cloudCa/book_app/vendor/bundle/ruby/3.3.0/gems/stringio-3.1.7/ext/stringio
+make DESTDIR\= sitearchdir\=./.gem.20251105-81879-1v0jnh sitelibdir\=./.gem.20251105-81879-1v0jnh clean
