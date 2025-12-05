@@ -7,8 +7,16 @@
 # Ignore bundler config.
 /.bundle
 
-# Ignore all environment files.
+# Ignore vendor-installed gems
+/vendor/bundle
+/vendor
+
+# Ignore node modules (if using webpack or js bundling)
+/node_modules
+
+# Ignore environment files.
 /.env*
+/.env
 
 # Ignore all logfiles and tempfiles.
 /log/*
