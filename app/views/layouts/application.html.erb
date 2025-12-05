@@ -28,11 +28,22 @@
   <body>
   <%= render "partial/navbar" %>
 
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
+  <!-- <p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p> -->
+
   
 
 <div class="container mt-4">
+
+  <% flash.each do |key, message| %>
+  <% bs = { notice: "success", alert: "danger" }[key.to_sym] || "info" %>
+  <div class="alert alert-<%= bs %> alert-dismissible fade show shadow-sm mb-3" role="alert">
+    <%= message %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+
+
+<% end %>
 <%= yield %>
 </div>
 

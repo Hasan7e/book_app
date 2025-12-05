@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/Hasan7e/age_guard
+  revision: 614a1e9ff84d9fb516f8a50df0df0090d32efb28
+  specs:
+    age_guard (0.1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -399,6 +405,7 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
+  age_guard!
   bootsnap
   brakeman
   capybara
@@ -408,7 +415,7 @@ DEPENDENCIES
   jbuilder
   kamal
   propshaft
-  puma (>= 5.0)
+  puma (>= 7.1.0)
   rails (~> 8.0.3)
   rubocop-rails-omakase
   selenium-webdriver

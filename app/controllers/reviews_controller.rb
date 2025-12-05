@@ -4,6 +4,8 @@ class ReviewsController < ApplicationController
   before_action :set_book
   before_action :set_review, only: [ :edit, :update, :destroy ]
   before_action :authorize_owner!, only: [ :edit, :update, :destroy ]
+  before_action :require_over16!, only: [ :create, :update, :destroy ]
+
 
   # If someone visits /books/:book_id/reviews/new, send them to the book page form
   def new
@@ -51,6 +53,19 @@ class ReviewsController < ApplicationController
 
   def authorize_owner!
     redirect_to @book, alert: "You can only modify your own review." unless @review.user == current_user
+  end
+
+
+  def require_over16!
+    unless current_user&.date_of_birth && AgeGuard.over?(current_user.date_of_birth, 16, today: Time.zone.today)
+      # Re-render the same combined page with a friendly alert
+      if request.post? || request.patch? || request.put? || request.delete?
+        redirect_to book_path(@book, anchor: "review-form"),
+          alert: "Sorry, you must be over 16 to leave a review."
+      else
+        redirect_to book_path(@book), alert: "Sorry, you must be over 16 to leave a review."
+      end
+    end
   end
 
   def review_params
