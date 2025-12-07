@@ -1,9 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  image_url: MyString
+  name: "Book One"
+  image_url: "test1.png"
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>
 
 two:
-  name: MyString
-  image_url: MyString
+  name: "Book Two"
+  image_url: "test2.png"
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>

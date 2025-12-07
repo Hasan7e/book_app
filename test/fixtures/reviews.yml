@@ -1,15 +1,19 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
-  description: MyText
-  score: 1
+  title: "Review One"
+  description: "Great book"
+  score: 5
   book: one
   user: one
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>
 
 two:
-  title: MyString
-  description: MyText
-  score: 1
+  title: "Review Two"
+  description: "Not bad"
+  score: 3
   book: two
   user: two
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>
