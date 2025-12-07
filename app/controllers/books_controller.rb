@@ -6,11 +6,11 @@ class BooksController < ApplicationController
     @books = Book.includes(:reviews).order(:name)
   end
 
-  # GET /books/1 or /books/1.json
+   # GET /books/1 or /books/1.json
    def show
     @book = Book.find(params[:id])
     @reviews = @book.reviews.includes(:user).order(created_at: :desc)
-    @review = user_signed_in? ? current_user.reviews.find_or_initialize_by(book: @book) : @book.reviews.build #added this line for the second page 
+    @review = user_signed_in? ? current_user.reviews.find_or_initialize_by(book: @book) : @book.reviews.build # added this line for the second page
   end
 
   # GET /books/new
