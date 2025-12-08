@@ -13,7 +13,7 @@ class BooksTest < ApplicationSystemTestCase
   end
 
   test "viewing a book" do
-    visit book_url(@book)
+    visit book_url(@book, anchor: "review-form")
 
     # Your UI shows the book name
     assert_text @book.name
