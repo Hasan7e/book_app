@@ -7,37 +7,15 @@ class BooksTest < ApplicationSystemTestCase
 
   test "visiting the index" do
     visit books_url
-    assert_selector "h1", text: "Books"
+
+    # Your real page title, NOT scaffold "Books"
+    assert_selector "h1", text: "Read something that really cross your mind?"
   end
 
-  test "should create book" do
-    visit books_url
-    click_on "New book"
-
-    fill_in "Image url", with: @book.image_url
-    fill_in "Name", with: @book.name
-    click_on "Create Book"
-
-    assert_text "Book was successfully created"
-    click_on "Back"
-  end
-
-  test "should update Book" do
+  test "viewing a book" do
     visit book_url(@book)
-    click_on "Edit this book", match: :first
 
-    fill_in "Image url", with: @book.image_url
-    fill_in "Name", with: @book.name
-    click_on "Update Book"
-
-    assert_text "Book was successfully updated"
-    click_on "Back"
-  end
-
-  test "should destroy Book" do
-    visit book_url(@book)
-    click_on "Destroy this book", match: :first
-
-    assert_text "Book was successfully destroyed"
+    # Your UI shows the book name
+    assert_text @book.name
   end
 end

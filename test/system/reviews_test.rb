@@ -2,48 +2,41 @@ require "application_system_test_case"
 
 class ReviewsTest < ApplicationSystemTestCase
   setup do
+    @book = books(:one)
     @review = reviews(:one)
+    @user = users(:one)
+    sign_in @user
   end
 
   test "visiting the index" do
-    visit reviews_url
-    assert_selector "h1", text: "Reviews"
+    visit book_path(@book)
+    assert_selector "h1", text: @book.name
   end
 
   test "should create review" do
-    visit reviews_url
-    click_on "New review"
+    visit book_path(@book)
 
-    fill_in "Book", with: @review.book_id
-    fill_in "Description", with: @review.description
-    fill_in "Score", with: @review.score
-    fill_in "Title", with: @review.title
-    fill_in "User", with: @review.user_id
-    click_on "Create Review"
+    fill_in "Title", with: "New Review"
+    fill_in "Description", with: "Amazing!"
+    fill_in "Score", with: 5
+    click_on "Submit Review"
 
-    assert_text "Review was successfully created"
-    click_on "Back"
+    assert_text "Thanks! Your review has been saved."
   end
 
-  test "should update Review" do
-    visit review_url(@review)
-    click_on "Edit this review", match: :first
+  test "should update review" do
+    visit book_path(@book, anchor: "review-form")
 
-    fill_in "Book", with: @review.book_id
-    fill_in "Description", with: @review.description
-    fill_in "Score", with: @review.score
-    fill_in "Title", with: @review.title
-    fill_in "User", with: @review.user_id
-    click_on "Update Review"
+    fill_in "Title", with: "Updated Review"
+    click_on "Submit Review"
 
-    assert_text "Review was successfully updated"
-    click_on "Back"
+    assert_text "Your review has been updated."
   end
 
-  test "should destroy Review" do
-    visit review_url(@review)
-    click_on "Destroy this review", match: :first
+  test "should destroy review" do
+    visit book_path(@book)
+    click_on "Delete Review", match: :first
 
-    assert_text "Review was successfully destroyed"
+    assert_text "Your review has been deleted."
   end
 end
